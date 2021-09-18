@@ -5,6 +5,7 @@ const express = require("express");
 const router = express.Router();
 const { Application } = require("../models/applications");
 const admin = require("../middleware/admin");
+const sendMail = require("../services/mailService");
 
 //get all application, for admin
 router.get("/", [auth, admin], async (req, res) => {
@@ -41,9 +42,19 @@ router.post("/", async (req, res) => {
     status: req.body.status,
   });
   await application.save();
+
+  const from = null,
+    to = req.body.email,
+    subject = "Thanks for applying for MTech Registration";
+  let text =
+    "Thanks for your MTech Registration application, we will update you if there is any change in your application.";
+  await sendMail({ from, to, subject, text });
+
   res
     .status(200)
-    .send("Your application has been saved . Please Check your mail");
+    .send(
+      "Your application has been saved . Please Check your mail for further updates"
+    );
 });
 
 //admin will update the application with comment and status
@@ -53,10 +64,27 @@ router.put("/", [auth, admin], async (req, res) => {
   });
   application.adminComments = req.body.adminComments;
   application.status = req.body.status;
+  application.save();
+
   // req.body.reg_id
 
   //mail logic
   //send with reg_id
+  const from = null,
+    to = req.body.email,
+    subject = "Update from MTech Registration Portal";
+  let text;
+  if (req.body.status == "pending") return;
+  else if (req.body.status == "accepted") {
+    text =
+      "your application is accepted. your registration number is " +
+      req.body.reg_id;
+  } else {
+    text =
+      "your application is rejected and the reason is: " +
+      req.body.adminComments;
+  }
+  await sendMail({ from, to, subject, text });
 
   res.send(200);
 });
