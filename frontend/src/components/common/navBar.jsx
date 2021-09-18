@@ -35,6 +35,11 @@ const NavBar = () => {
                   Apply for MTech Registration
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/application-status">
+                  Check application status
+                </NavLink>
+              </li>
             </React.Fragment>
           )}
           {user && (

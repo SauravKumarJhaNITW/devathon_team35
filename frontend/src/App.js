@@ -4,6 +4,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import NavBar from "./components/common/navBar";
 import ProtectedRoute from "./components/common/protectedRoute";
 import ApplicationForm from "./components/applicationForm";
+import ApplicationStatus from "./components/applicationStatus";
 import LoginForm from "./components/loginForm";
 import NotFound from "./components/common/notFound";
 import Profile from "./components/profile";
@@ -24,6 +25,7 @@ class App extends Component {
             <ProtectedRoute path="/logout" component={Logout} />
             <Route path="/not-found" component={NotFound} />
             <Route path="/application-form" component={ApplicationForm} />
+            <Route path="/application-status" component={ApplicationStatus} />
             <Route path="/" component={Home} />
             <Redirect to="/not-found" />
           </Switch>{" "}
