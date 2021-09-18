@@ -34,7 +34,7 @@ router.post("/", async (req, res) => {
     category: req.body.category,
     pwd: req.body.pwd,
     documents: req.body.documents,
-    picture: req.body.profileImage,
+    picture: req.body.picture,
     userComments: req.body.userComments,
     adminComments: req.body.adminComments,
     status: req.body.status,

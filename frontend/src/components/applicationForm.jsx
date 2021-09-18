@@ -61,7 +61,7 @@ class ApplicationForm extends Form {
         style={{
           marginTop: "10vh",
           padding: "2%",
-          width: "50%",
+          width: "80%",
           minWidth: "200px",
           backgroundColor: "lightgray",
           boxShadow:
