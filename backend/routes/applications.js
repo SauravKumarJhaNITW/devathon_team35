@@ -11,4 +11,10 @@ router.get("/", auth, async (req, res) => {
   res.status(200).send(applications);
 });
 
+//get request for student
+
+
+//post request for student
+
+
 module.exports = router;

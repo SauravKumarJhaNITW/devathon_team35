@@ -9,5 +9,8 @@ module.exports = async function () {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
-    .then(() => winston.info(`connected to ${db}..`));
+    .then(() => console.log(`connected to ${db}..`))
+    .catch(err => {
+      console.log(err);
+    });
 };

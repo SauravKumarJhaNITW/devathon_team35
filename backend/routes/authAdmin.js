@@ -15,7 +15,7 @@ router.post("/", validateMiddleware(validate), async (req, res) => {
     return res.status(400).send("Invalid username or password");
 
   const token = admin.generateAuthToken();
-
+  res.statusCode = 200;
   res.send(token);
 });
 

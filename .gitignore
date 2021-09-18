@@ -2,3 +2,9 @@ backend/node_modules/
 frontend/node_modules
 backend/.env
 frontend/yarn.lock
+backend/package-lock.json
+backend/yarn.lock
+backend/public
+yarn-error.log
+backend/logfile.log
+backend/uncaughtException.log
