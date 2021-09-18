@@ -1,6 +1,7 @@
 import { Component } from "react";
 import Joi from "joi-browser";
 import Input from "./input";
+import Select from "./select";
 
 class Form extends Component {
   state = { data: {}, errors: {} };
@@ -64,6 +65,21 @@ class Form extends Component {
         onChange={this.handleInputChange}
         value={data[name]}
         label={label}
+        error={errors[name]}
+      />
+    );
+  }
+
+  renderSelect(name, label, items) {
+    console.log("items", items);
+    const { data, errors } = this.state;
+    return (
+      <Select
+        name={name}
+        value={data[name]}
+        onChange={this.handleInputChange}
+        label={label}
+        items={items}
         error={errors[name]}
       />
     );

@@ -15,7 +15,8 @@ class ApplicationForm extends Form {
       aadharNumber: "",
       address: "",
       gender: "",
-      specialisation: "",
+      branch: "",
+      specialization: "",
       category: "",
       pwd: "",
       documents: "",
@@ -23,7 +24,15 @@ class ApplicationForm extends Form {
       userComments: "",
     },
     errors: {},
+    branches: [],
   };
+
+  async componentDidMount() {
+    const { data } = await userService.getBranches();
+    console.log(data);
+    this.setState({ branches: data });
+    console.log(this.state.branches);
+  }
 
   schema = {
     name: Joi.string().required().label("Name"),
@@ -33,7 +42,8 @@ class ApplicationForm extends Form {
     aadharNumber: Joi.string().required().label("aadharNumber"),
     address: Joi.string().required().label("address"),
     gender: Joi.string().required().label("gender"),
-    specialisation: Joi.string().required().label("specialisation"),
+    branch: Joi.string().required().label("branch"),
+    specialization: Joi.string().required().label("specialization"),
     category: Joi.string().required().label("category"),
     pwd: Joi.string().required().label("pwd"),
     documents: Joi.string().required().label("documents"),
@@ -52,6 +62,15 @@ class ApplicationForm extends Form {
         this.setState({ errors });
       }
     }
+  };
+
+  getSpecializations = (async) => {
+    if (this.state.branches && this.state.data.branch) {
+      const item = this.state.branches.find(
+        (item) => item.name == this.state.data.branch
+      );
+      return item.specializations;
+    } else return null;
   };
 
   render() {
@@ -77,7 +96,12 @@ class ApplicationForm extends Form {
           {this.renderInput("aadharNumber", "aadharNumber")}
           {this.renderInput("address", "address")}
           {this.renderInput("gender", "gender")}
-          {this.renderInput("specialisation", "specialisation")}
+          {this.renderSelect("branch", "branch", this.state.branches)}
+          {this.renderSelect(
+            "specialization",
+            "specialization",
+            this.getSpecializations()
+          )}
           {this.renderInput("category", "category")}
           {this.renderInput("pwd", "pwd")}
           {this.renderInput("documents", "documents")}
