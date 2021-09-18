@@ -5,32 +5,31 @@ const File = require('../models/fileSchema');
 
 var storage = multer.diskStorage({
     destination: (req,file,cb) =>{
-        cb(null,'public/files');
+        cb(null,'public/images');
     },
     filename: (req,file, cb)=>{
         cb(null,file.originalname);
     }
 });
 
-const pdfFileFilter = (req,file,cb)=>{
-    if(!file.originalname.match(/\.(pdf)$/)){
-        return cb(new Error('You can upload only PDF files !'), false);
+const imgFilter = (req,file,cb)=>{
+    if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){
+        return cb(new Error('You can upload only jpg, jpeg and png files !'), false);
     }
     cb(null,true);
 }
 
-const upload = multer({storage:storage, fileFilter:pdfFileFilter});
+const upload = multer({storage:storage, fileFilter:imgFilter});
 
-const uploadRouter = express.Router();
+const uploadImgRouter = express.Router();
 
-uploadRouter.route('/')
-.post(upload.single('PDFfile'),async (req, res) => {
+uploadImgRouter.route('/')
+.post(upload.single('image'),async (req, res) => {
     // uploading files to public/files to access later
     try {
-        // get user and push the filename
-        // const newFile = await File.create({
-        //   name: 'shshshs.pdf',
-        // });
+        const newFile = await File.create({
+          name: 'sdfghj',
+        });
         res.status(200).json({
           status: "success",
           message: "File created successfully!!",
@@ -45,4 +44,4 @@ uploadRouter.route('/')
 });
 
 
-module.exports = uploadRouter;
+module.exports = uploadImgRouter;

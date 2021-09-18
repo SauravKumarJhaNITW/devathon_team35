@@ -13,6 +13,7 @@ const Input = ({ name, label, error, ...rest }) => {
         className="form-control text-center"
       />
       {error && <div className="alert alert-danger">{error}</div>}
+      <br />
     </div>
   );
 };
