@@ -14,7 +14,7 @@ const applicationSchema = new mongoose.Schema({
     required: true,
     minlength: 1,
     maxlength: 50,
-  }
+  },
   birthdate: {
     type: Date,
     required: true,
