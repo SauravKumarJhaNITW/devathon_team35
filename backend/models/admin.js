@@ -23,6 +23,7 @@ adminSchema.methods.generateAuthToken = function () {
     {
       _id: this._id,
       username: this.username,
+      isAdmin: this.isAdmin,
     },
     process.env.jwtPrivateKey
   );
@@ -34,7 +35,6 @@ const Admin = mongoose.model("Admin", adminSchema);
 function validateAdmin(req) {
   const schema = Joi.object({
     username: Joi.string().min(1).max(50).required(),
-    email: Joi.string().min(5).max(255).required().email(),
     password: Joi.string().min(5).max(255).required(),
   });
 

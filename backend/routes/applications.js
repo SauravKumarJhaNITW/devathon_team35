@@ -21,7 +21,7 @@ router.get("/", [auth, admin], async (req, res) => {
 // });
 
 //post request for student
-router.post("/", auth, async (req, res) => {
+router.post("/", async (req, res) => {
   const application = new Application({
     name: req.body.name,
     birthdate: req.body.birthdate,
@@ -33,18 +33,27 @@ router.post("/", auth, async (req, res) => {
     category: req.body.category,
     pwd: req.body.pwd,
     documents: req.body.documents,
-    picture : req.body.profileImage,
-    comments: req.body.comments
+    picture: req.body.profileImage,
+    comments: req.body.comments,
   });
   await application.save();
-  res.status(200).send("Your application has been saved . Please Check your mail");
+  res
+    .status(200)
+    .send("Your application has been saved . Please Check your mail");
 });
 
 //admin will update the application with comment and status
 router.put("/", [auth, admin], async (req, res) => {
-  const application = await Application.findById(req.body._id);
-  application.comment = req.body.form_data.comment;
+  const application = await Application.findOne({
+    application_id: req.body.application_id,
+  });
+  application.adminComments = req.body.adminComments;
   application.status = req.body.status;
+  // req.body.reg_id
+
+  //mail logic
+  //send with reg_id
+
   res.send(200);
 });
 
