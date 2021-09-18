@@ -19,8 +19,8 @@ class ApplicationForm extends Form {
       specialization: "",
       category: "",
       pwd: "",
-      documents: "",
-      picture: "",
+      documents: "none",
+      picture: "none",
       userComments: "",
     },
     branches: [],
@@ -56,11 +56,17 @@ class ApplicationForm extends Form {
   doSubmit = async () => {
     try {
       console.log("Submitting");
+      console.log(this.state.docFile);
+      console.log(this.state.picture);
       const fileUpload = await userService.uploadFile(this.state.docFile);
       const imageUpload = await userService.uploadImage(this.state.picture);
       console.log(fileUpload);
       console.log(imageUpload);
-      this.setState({document: this.state.docFile.name, picture: this.state.picture.name});
+      const data = { ...this.state.data };
+      data['documents'] = this.state.docFile.name;
+      data['picture'] = this.state.picture.name;
+      this.setState({data});
+      console.log(this.state.data);
       await userService.register(this.state.data);
       console.log("SUCCESSFULLY DONE !!");
     } catch (ex) {
@@ -82,22 +88,53 @@ class ApplicationForm extends Form {
   };
 
 
-  changeState = () => {
+  changeState = (e) => {
+    // e.preventDefault();
+    const errors = this.validate();
+    this.setState({ errors: errors || {} });
+    console.log(this.state.errors);
+    if(errors) return;
+    console.log("MOVE");
     this.setState({ stage: this.state.stage + 1 });
+    e.preventDefault();
   };
 
   handleFiles = (e) => {
-    if(e.name==="documents"){
-      this.setState({ docFile: e.files[0] });
+    // console.log(e);
+    if(e.target.name==="docs"){
+      console.log("File selected");
+      this.setState({ docFile: e.target.files[0] });
     }
-    if(e.name==="picture"){
-      this.setState({ picture: e.files[0] });
+    if(e.target.name==="pic"){
+      console.log("IMAGE selected");
+      this.setState({ picture: e.target.files[0] });
     }
   };
 
   handleFileSubmit = (e) => {
     e.preventDefault();
-    this.doSubmit();
+    document.querySelector('.doccheck1').innerHTML="";
+    document.querySelector('.doccheck2').innerHTML="";
+
+    if(!this.state.docFile){
+      document.querySelector('.doccheck1').innerHTML="Please upload documents";
+      return;
+    }
+    else if(!this.state.picture){
+      document.querySelector('.doccheck2').innerHTML="Please upload profile image";
+      return;
+    }
+    // this.doSubmit();
+    const data = { ...this.state.data };
+    data['documents'] = this.state.docFile.name;
+    data['picture'] = this.state.picture.name;
+    this.setState({data});
+    this.setState({ stage: 3 });
+  };
+
+  handlePreviewBack = (e) => {
+    e.preventDefault();
+    this.setState({ stage: 2 });
   };
 
 
@@ -141,7 +178,7 @@ class ApplicationForm extends Form {
         </form>
       </div>
     );
-    else{
+    else if(this.state.stage===2){
       return(
         <div
         className="text-center mx-auto"
@@ -165,8 +202,10 @@ class ApplicationForm extends Form {
             type="file"
             name="docs"
             id="docs"
+            accept=".pdf" 
             className="form-control text-center"
           />
+          <div className="doccheck1" style={{color: 'red'}}></div>
           <br />
         </div>
         <div className="form-group">
@@ -177,14 +216,47 @@ class ApplicationForm extends Form {
             type="file"
             name="pic"
             id="pic"
+            accept=".jpg,.jpg,.png"
             className="form-control text-center"
           />
+          <div className="doccheck2" style={{color: 'red'}}></div>
           <br />
         </div>
         <button onClick={()=> this.setState({stage:1})} className="btn btn-primary my-3">Previous</button>
-        <button  type="submit" className="btn btn-primary my-3">Submit</button>
+        {' '}
+        <button  type="submit" className="btn btn-primary my-3">Preview</button>
         </form>
       </div>
+      )
+    }
+    else{
+      return(
+        <div
+          className="text-center mx-auto"
+          style={{
+            marginTop: "10vh",
+            padding: "2%",
+            width: "80%",
+            minWidth: "200px",
+            backgroundColor: "lightgray",
+            boxShadow:
+              "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+          }}
+        >
+          <h2>MTech Registration</h2>
+            <div className="container">
+            {
+              Object.keys(this.state.data).map((key, i) => {
+                return(
+                  <div key={i}>
+                    <h3>{key}: {this.state.data[key]}</h3>
+                    <br />
+                  </div>
+                );
+              })
+            }
+            </div>
+        </div>
       )
     }
   }

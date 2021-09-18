@@ -7,12 +7,16 @@ export function register(data) {
 
 export function uploadFile(docFile) {
   const apiEndpoint = "/api/uploadFile";
-  return http.post(apiEndpoint, {"PDFfile": docFile});
+  var formData = new FormData();
+  formData.append("PDFfile", docFile);
+  return http.post(apiEndpoint, formData);
 }
 
 export function uploadImage(image) {
   const apiEndpoint = "/api/uploadImage";
-  return http.post(apiEndpoint, {"image": image});
+  var formData = new FormData();
+  formData.append("image", image);
+  return http.post(apiEndpoint,formData);
 }
 
 export function getBranches() {
