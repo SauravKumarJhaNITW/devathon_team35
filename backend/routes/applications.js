@@ -13,12 +13,6 @@ router.get("/", [auth, admin], async (req, res) => {
 });
 
 //get request for student
-<<<<<<< HEAD
-
-
-//post request for student
-
-=======
 router.get("/myApplication", auth, async (req, res) => {
   const application = await Application.findOne({
     application_id: req.user.username,
@@ -43,6 +37,5 @@ router.put("/", [auth, admin], async (req, res) => {
   application.status = req.body.status;
   res.send(200);
 });
->>>>>>> 5fb5d779b87a9c81ac5b4b49a303495c1c49d3f2
 
 module.exports = router;
