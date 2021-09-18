@@ -27,6 +27,7 @@ router.post("/", async (req, res) => {
     birthdate: req.body.birthdate,
     aadharNumber: req.body.aadharNumber,
     application_id: req.body.application_id,
+    email: req.body.email,
     address: req.body.address,
     gender: req.body.gender,
     specialisation: req.body.specialisation,
@@ -34,7 +35,9 @@ router.post("/", async (req, res) => {
     pwd: req.body.pwd,
     documents: req.body.documents,
     picture: req.body.profileImage,
-    comments: req.body.comments,
+    userComments: req.body.userComments,
+    adminComments: req.body.adminComments,
+    status: req.body.status,
   });
   await application.save();
   res
