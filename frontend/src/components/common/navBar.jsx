@@ -30,11 +30,11 @@ const NavBar = () => {
                   Login
                 </NavLink>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink className="nav-link" to="/register">
                   Register
                 </NavLink>
-              </li>
+              </li> */}
             </React.Fragment>
           )}
           {user && user.isAdmin && (
@@ -80,7 +80,7 @@ const NavBar = () => {
               </li>
             </React.Fragment>
           )}
-          {user && !user.isAdmin && (
+          {/* {user && !user.isAdmin && (
             <React.Fragment>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/apply">
@@ -98,7 +98,7 @@ const NavBar = () => {
                 </NavLink>
               </li>
             </React.Fragment>
-          )}
+          )} */}
         </ul>
       </div>
     </nav>
