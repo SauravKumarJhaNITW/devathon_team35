@@ -8,6 +8,7 @@ import LoginForm from "./components/loginForm";
 import NotFound from "./components/common/notFound";
 import Profile from "./components/profile";
 import Logout from "./components/logout";
+import RegForm from './Signupform/signupform'
 import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component {
@@ -19,6 +20,7 @@ class App extends Component {
         <main className="container">
           <Switch>
             <Route path="/register" component={RegisterForm} />
+            <Route path="/application" component={RegForm} />
             <Route path="/login" component={LoginForm} />
             <ProtectedRoute path="/profile" component={Profile} />
             <ProtectedRoute path="/logout" component={Logout} />
