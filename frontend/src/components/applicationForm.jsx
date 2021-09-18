@@ -119,10 +119,10 @@ class ApplicationForm extends Form {
         <h2>MTech Registration</h2>
         <form onSubmit={this.handleSubmit}>
           {this.renderInput("application_id", "Application Id")}
-          {this.renderInput("email", "Email")}
+          {this.renderInput("email", "Email", "email")}
           {this.renderInput("name", "name")}
           {this.renderInput("birthdate", "birthdate","date")}
-          {this.renderInput("aadharNumber", "aadharNumber")}
+          {this.renderInput("aadharNumber", "aadharNumber","number")}
           {this.renderInput("address", "address")}
           {this.renderSelect("gender", "gender", ["Male","Female","Others"])}
           {this.renderSelect("branch", "branch", this.state.branches)}
@@ -134,7 +134,8 @@ class ApplicationForm extends Form {
           {this.renderSelect("category", "category", ["General","SC/ST","OBC"])}
           {this.renderSelect("pwd", "pwd", ["Yes","No"])}
           {this.renderInput("userComments", "userComments")}
-          <button onClick={this.changeState} className="btn btn-primary my-3">
+
+          <button disable={this.validate()} onClick={this.changeState} className="btn btn-primary my-3">
             Move to next page
           </button>
         </form>
@@ -180,9 +181,8 @@ class ApplicationForm extends Form {
           />
           <br />
         </div>
-        <button  onClick={this.changeState} className="btn btn-primary my-3"></button>
+        <button onClick={()=> this.setState({stage:1})} className="btn btn-primary my-3">Previous</button>
         <button  type="submit" className="btn btn-primary my-3">Submit</button>
-        {this.renderButton("Submit","Submit")}
         </form>
       </div>
       )
