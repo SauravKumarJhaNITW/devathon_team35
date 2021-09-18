@@ -9,7 +9,6 @@ import NotFound from "./components/common/notFound";
 import Profile from "./components/profile";
 import Home from "./components/home";
 import Logout from "./components/logout";
-import RegForm from './Signupform/signupform'
 import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component {

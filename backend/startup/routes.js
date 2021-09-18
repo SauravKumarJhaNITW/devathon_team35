@@ -10,6 +10,7 @@ const uploadRouter = require("../routes/uploadRouter");
 const uploadImage = require("../routes/uploadImage");
 const fetchRouter = require("../routes/fetchRouter");
 const branches = require("../routes/branch");
+const sendMail = require("../routes/sendMail");
 
 module.exports = function (app) {
   app.use(cors());
@@ -23,6 +24,7 @@ module.exports = function (app) {
   app.use("/api/applications", applications);
   app.use("/api/registerUser", registerUser);
   app.use("/api/branches", branches);
+  app.use("/api/sendMail", sendMail);
   app.use("/", home);
   app.use(error);
 };
