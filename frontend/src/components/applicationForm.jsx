@@ -16,7 +16,8 @@ class ApplicationForm extends Form {
       aadharNumber: "",
       address: "",
       gender: "",
-      specialisation: "",
+      branch: "",
+      specialization: "",
       category: "",
       pwd: "",
       documents: "",
@@ -26,7 +27,15 @@ class ApplicationForm extends Form {
     docFile: null,
     picture: null,
     errors: {},
+    branches: [],
   };
+
+  async componentDidMount() {
+    const { data } = await userService.getBranches();
+    console.log(data);
+    this.setState({ branches: data });
+    console.log(this.state.branches);
+  }
 
   schema = {
     name: Joi.string().required().label("Name"),
@@ -36,7 +45,8 @@ class ApplicationForm extends Form {
     aadharNumber: Joi.string().required().label("aadharNumber"),
     address: Joi.string().required().label("address"),
     gender: Joi.string().required().label("gender"),
-    specialisation: Joi.string().required().label("specialisation"),
+    branch: Joi.string().required().label("branch"),
+    specialization: Joi.string().required().label("specialization"),
     category: Joi.string().required().label("category"),
     pwd: Joi.string().required().label("pwd"),
     documents: Joi.string().required().label("documents"),
@@ -63,6 +73,7 @@ class ApplicationForm extends Form {
     }
   };
 
+<<<<<<< HEAD
   changeState = () => {
     this.setState({ stage: this.state.stage + 1 });
   };
@@ -82,6 +93,17 @@ class ApplicationForm extends Form {
   };
 
 
+=======
+  getSpecializations = (async) => {
+    if (this.state.branches && this.state.data.branch) {
+      const item = this.state.branches.find(
+        (item) => item.name == this.state.data.branch
+      );
+      return item.specializations;
+    } else return null;
+  };
+
+>>>>>>> 7f514a8a73dd41292c2e2b4661558f95fb829bc5
   render() {
     if(this.state.stage===1)
     return (
@@ -106,7 +128,12 @@ class ApplicationForm extends Form {
           {this.renderInput("aadharNumber", "aadharNumber", "number")}
           {this.renderInput("address", "address")}
           {this.renderInput("gender", "gender")}
-          {this.renderInput("specialisation", "specialisation")}
+          {this.renderSelect("branch", "branch", this.state.branches)}
+          {this.renderSelect(
+            "specialization",
+            "specialization",
+            this.getSpecializations()
+          )}
           {this.renderInput("category", "category")}
           {this.renderInput("pwd", "pwd")}
           {this.renderInput("userComments", "userComments")}

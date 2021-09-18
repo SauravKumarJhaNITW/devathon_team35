@@ -39,7 +39,11 @@ const applicationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  specialisation: {
+  branch: {
+    type: String,
+    required: true,
+  },
+  specialization: {
     type: String,
     required: true,
   },

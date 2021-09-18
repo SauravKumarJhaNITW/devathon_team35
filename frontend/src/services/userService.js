@@ -14,3 +14,7 @@ export function uploadImage(image) {
   const apiEndpoint = "/api/uploadImage";
   return http.post(apiEndpoint, {"image": image});
 }
+
+export function getBranches() {
+  return http.get("/api/branches");
+}
