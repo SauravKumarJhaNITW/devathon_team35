@@ -20,7 +20,7 @@ const applicationSchema = new mongoose.Schema({
     required: true,
   },
   birthdate: {
-    type: Date,
+    type: String,
     required: true,
   },
   aadharNumber: {
@@ -48,7 +48,7 @@ const applicationSchema = new mongoose.Schema({
     required: true,
   },
   pwd: {
-    type: Boolean,
+    type: String,
     required: true,
   },
   documents: {
