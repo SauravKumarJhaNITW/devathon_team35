@@ -16,7 +16,6 @@ class ApplicationForm extends Form {
       aadharNumber: "",
       address: "",
       gender: "",
-      branch: "",
       specialization: "",
       category: "",
       pwd: "",
@@ -24,10 +23,10 @@ class ApplicationForm extends Form {
       picture: "",
       userComments: "",
     },
+    branches: [],
     docFile: null,
     picture: null,
     errors: {},
-    branches: [],
   };
 
   async componentDidMount() {
@@ -61,8 +60,8 @@ class ApplicationForm extends Form {
       const imageUpload = await userService.uploadImage(this.state.picture);
       console.log(fileUpload);
       console.log(imageUpload);
-      // this.setState({document: fileUpload., picture: imageUpload.name});
-      // await userService.register(this.state.data);
+      this.setState({document: this.state.docFile.name, picture: this.state.picture.name});
+      await userService.register(this.state.data);
       console.log("SUCCESSFULLY DONE !!");
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
@@ -73,7 +72,16 @@ class ApplicationForm extends Form {
     }
   };
 
-<<<<<<< HEAD
+  getSpecializations = (async) => {
+    if (this.state.branches && this.state.data.branch) {
+      const item = this.state.branches.find(
+        (item) => item.name === this.state.data.branch
+      );
+      return item.specializations;
+    } else return null;
+  };
+
+
   changeState = () => {
     this.setState({ stage: this.state.stage + 1 });
   };
@@ -93,17 +101,6 @@ class ApplicationForm extends Form {
   };
 
 
-=======
-  getSpecializations = (async) => {
-    if (this.state.branches && this.state.data.branch) {
-      const item = this.state.branches.find(
-        (item) => item.name == this.state.data.branch
-      );
-      return item.specializations;
-    } else return null;
-  };
-
->>>>>>> 7f514a8a73dd41292c2e2b4661558f95fb829bc5
   render() {
     if(this.state.stage===1)
     return (
@@ -124,23 +121,22 @@ class ApplicationForm extends Form {
           {this.renderInput("application_id", "Application Id")}
           {this.renderInput("email", "Email")}
           {this.renderInput("name", "name")}
-          {this.renderInput("birthdate", "birthdate", "date")}
-          {this.renderInput("aadharNumber", "aadharNumber", "number")}
+          {this.renderInput("birthdate", "birthdate","date")}
+          {this.renderInput("aadharNumber", "aadharNumber")}
           {this.renderInput("address", "address")}
-          {this.renderInput("gender", "gender")}
+          {this.renderSelect("gender", "gender", ["Male","Female","Others"])}
           {this.renderSelect("branch", "branch", this.state.branches)}
           {this.renderSelect(
             "specialization",
             "specialization",
             this.getSpecializations()
           )}
-          {this.renderInput("category", "category")}
-          {this.renderInput("pwd", "pwd")}
+          {this.renderSelect("category", "category", ["General","SC/ST","OBC"])}
+          {this.renderSelect("pwd", "pwd", ["Yes","No"])}
           {this.renderInput("userComments", "userComments")}
           <button onClick={this.changeState} className="btn btn-primary my-3">
             Move to next page
           </button>
-          <br />
         </form>
       </div>
     );

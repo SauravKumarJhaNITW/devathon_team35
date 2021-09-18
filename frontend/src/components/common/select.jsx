@@ -31,6 +31,16 @@ const Select = ({ name, onChange, value, label, items, error }) => {
               </option>
             );
           })}
+          {
+            name !== "branch" && name!=="specialization" &&
+            items.map((item) => {
+              return (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              );
+            })
+          }
       </select>
       {error && <div className="alert alert-danger">{error}</div>}
     </div>
