@@ -12,7 +12,7 @@ var storage = multer.diskStorage({
     }
 });
 
-const pdfFileFilter =(req,file,cb)=>{
+const pdfFileFilter = (req,file,cb)=>{
     if(!file.originalname.match(/\.(pdf)$/)){
         return cb(new Error('You can upload only PDF files !'), false);
     }
@@ -41,7 +41,7 @@ uploadRouter.route('/')
 .delete((req, res, next) => {
     res.statusCode = 403;
     res.end('DELETE operation not supported on /imgUpload');
-})
+});
 
 
 module.exports = uploadRouter;
