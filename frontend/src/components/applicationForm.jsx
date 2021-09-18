@@ -68,6 +68,8 @@ class ApplicationForm extends Form {
       this.setState({data});
       console.log(this.state.data);
       await userService.register(this.state.data);
+
+      this.setState({stage: 4});
       console.log("SUCCESSFULLY DONE !!");
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
@@ -136,6 +138,11 @@ class ApplicationForm extends Form {
     e.preventDefault();
     this.setState({ stage: 2 });
   };
+
+  handleSubmit = (e) =>{
+    e.preventDefault();
+    this.doSubmit();
+  }
 
 
   render() {
@@ -229,7 +236,7 @@ class ApplicationForm extends Form {
       </div>
       )
     }
-    else{
+    else if(this.state.stage===3){
       return(
         <div
           className="text-center mx-auto"
@@ -255,7 +262,31 @@ class ApplicationForm extends Form {
                 );
               })
             }
+            <form onSubmit={this.handleFinalSubmit}>
+              <button onClick={this.handlePreviewBack} className="btn btn-primary my-3">Go Back</button>
+              {' '}
+              <button type="submit" className="btn btn-primary my-3">Submit</button>
+            </form>
             </div>
+        </div>
+      )
+    }
+    else{
+      return(
+        <div
+          className="text-center mx-auto"
+          style={{
+            marginTop: "10vh",
+            padding: "2%",
+            width: "80%",
+            minWidth: "200px",
+            backgroundColor: "lightgray",
+            boxShadow:
+              "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+          }}
+        >
+        <h2>MTech Registration</h2>
+        <p>Your request have been successfully submitted .</p>
         </div>
       )
     }
