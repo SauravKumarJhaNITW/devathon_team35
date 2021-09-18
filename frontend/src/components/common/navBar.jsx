@@ -27,17 +27,17 @@ const NavBar = () => {
             <React.Fragment>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/login">
-                  Login
+                  Login as admin
                 </NavLink>
               </li>
-              {/* <li className="nav-item">
-                <NavLink className="nav-link" to="/register">
-                  Register
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/application-form">
+                  Apply for MTech Registration
                 </NavLink>
-              </li> */}
+              </li>
             </React.Fragment>
           )}
-          {user && user.isAdmin && (
+          {user && (
             <React.Fragment>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/accepted">
@@ -61,7 +61,7 @@ const NavBar = () => {
               </li>
             </React.Fragment>
           )}
-          {user && !user.isAdmin && user.submitted && (
+          {/* {user && !user.isAdmin && user.submitted && (
             <React.Fragment>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/status">
@@ -79,7 +79,7 @@ const NavBar = () => {
                 </NavLink>
               </li>
             </React.Fragment>
-          )}
+          )} */}
           {/* {user && !user.isAdmin && (
             <React.Fragment>
               <li className="nav-item">

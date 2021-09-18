@@ -8,6 +8,7 @@ const registerUser = require("../routes/registerUser");
 const cors = require("cors");
 const uploadRouter = require("../routes/uploadRouter");
 const fetchRouter = require("../routes/fetchRouter");
+const branches = require("../routes/branch");
 
 module.exports = function (app) {
   app.use(cors());
@@ -19,6 +20,7 @@ module.exports = function (app) {
   app.use("/api/files", fetchRouter);
   app.use("/api/applications", applications);
   app.use("/api/registerUser", registerUser);
+  app.use("/api/branches", branches);
   app.use("/", home);
   app.use(error);
 };

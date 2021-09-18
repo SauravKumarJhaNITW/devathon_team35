@@ -15,6 +15,10 @@ const applicationSchema = new mongoose.Schema({
     minlength: 1,
     maxlength: 50,
   },
+  email: {
+    type: String,
+    required: true,
+  },
   birthdate: {
     type: Date,
     required: true,
@@ -33,32 +37,38 @@ const applicationSchema = new mongoose.Schema({
   },
   gender: {
     type: String,
-    required: true
+    required: true,
   },
   specialisation: {
     type: String,
-    required: true
+    required: true,
   },
   category: {
     type: String,
-    required: true
+    required: true,
   },
   pwd: {
     type: Boolean,
-    required: true
+    required: true,
   },
   documents: {
     type: String,
-    required: true
+    required: true,
   },
   picture: {
     type: String,
-    required: true
-  },
-  comments: {
-    type: String,
     required: true,
-  }
+  },
+  userComments: {
+    type: String,
+  },
+  adminComments: {
+    type: String,
+  },
+  status: {
+    type: String,
+    default: "pending",
+  },
 });
 
 const Application = mongoose.model("Application", applicationSchema);
