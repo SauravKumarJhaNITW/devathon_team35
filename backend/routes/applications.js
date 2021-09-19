@@ -8,9 +8,19 @@ const admin = require("../middleware/admin");
 const sendMail = require("../services/mailService");
 
 //get all application, for admin
-router.get("/", [auth, admin], async (req, res) => {
-  const applications = await Application.find();
-  res.status(200).send(applications);
+router.get("/:status", auth, async (req, res) => {
+  const application_ids = await Application.find({
+    status: req.params.status,
+  }).select({ application_id: 1 });
+  res.status(200).send(application_ids);
+});
+
+router.get("/application_id/:application_id", auth, async (req, res) => {
+  const application = await Application.findOne({
+    application_id: req.params.application_id,
+  });
+  if (!application) res.sendStatus(404).send("not found");
+  res.status(200).send(application);
 });
 
 //get request for student
@@ -43,7 +53,7 @@ router.post("/", async (req, res) => {
   });
   await application.save();
 
-  const from = null,
+  const from = "Admin",
     to = req.body.email,
     subject = "Thanks for applying for MTech Registration";
   let text =
@@ -70,7 +80,7 @@ router.put("/", [auth, admin], async (req, res) => {
 
   //mail logic
   //send with reg_id
-  const from = null,
+  const from = "Admin",
     to = req.body.email,
     subject = "Update from MTech Registration Portal";
   let text;

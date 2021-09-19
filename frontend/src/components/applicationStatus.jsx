@@ -1,38 +1,37 @@
 import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
+import { getStatus } from "../services/userService";
 
-class LoginForm extends Form {
+class ApplicationStatus extends Form {
   state = {
     data: {
-      application_id: ''
+      application_id: "",
     },
     errors: {},
+    success: "",
   };
 
   schema = {
-    application_id: Joi.string().required().label("Application_ID")
+    application_id: Joi.string().required().label("Application_ID"),
   };
 
   doSubmit = async () => {
-
     // change to fetch application status
-
-
-    // try {
-    //   await login(this.state.data);
-    //   const { state } = this.props.location;
-    //   window.location = state ? state.from.pathname : "/";
-    // } catch (ex) {
-    //   if (
-    //     ex.response &&
-    //     (ex.response.status === 400 || ex.response.status === 404)
-    //   ) {
-    //     const errors = { ...this.state.errors };
-    //     errors.username = ex.response.data;
-    //     this.setState({ errors });
-    //   }
-    // }
+    try {
+      const { data } = await getStatus(this.state.data.application_id);
+      console.log(data.status);
+      this.setState({ success: data.status });
+    } catch (ex) {
+      if (
+        ex.response &&
+        (ex.response.status === 400 || ex.response.status === 404)
+      ) {
+        const errors = { ...this.state.errors };
+        errors.username = ex.response.data;
+        this.setState({ errors });
+      }
+    }
   };
 
   render() {
@@ -51,12 +50,13 @@ class LoginForm extends Form {
       >
         <h2>Check Application Status</h2>
         <form onSubmit={this.handleSubmit}>
-          {this.renderInput("Application_ID", "Application Id")}
-          {this.renderButton("Login")}
+          {this.renderInput("application_id", "Application Id")}
+          {this.renderButton("Check Status")}
+          <div>{this.state.success}</div>
         </form>
       </div>
     );
   }
 }
 
-export default LoginForm;
+export default ApplicationStatus;

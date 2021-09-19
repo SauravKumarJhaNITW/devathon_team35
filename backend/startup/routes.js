@@ -11,6 +11,7 @@ const uploadImage = require("../routes/uploadImage");
 const fetchRouter = require("../routes/fetchRouter");
 const branches = require("../routes/branch");
 const sendMail = require("../routes/sendMail");
+const checkStatus = require("../routes/checkStatus");
 
 module.exports = function (app) {
   app.use(cors());
@@ -25,6 +26,7 @@ module.exports = function (app) {
   app.use("/api/registerUser", registerUser);
   app.use("/api/branches", branches);
   app.use("/api/sendMail", sendMail);
+  app.use("/api/checkStatus", checkStatus);
   app.use("/", home);
   app.use(error);
 };
