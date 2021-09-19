@@ -12,6 +12,7 @@ const fetchRouter = require("../routes/fetchRouter");
 const branches = require("../routes/branch");
 const sendMail = require("../routes/sendMail");
 const checkStatus = require("../routes/checkStatus");
+const imageFetcher = require("../routes/imagefetcher");
 
 module.exports = function (app) {
   app.use(cors());
@@ -22,6 +23,7 @@ module.exports = function (app) {
   app.use("/api/uploadFile", uploadRouter);
   app.use("/api/uploadImage", uploadImage);
   app.use("/api/files", fetchRouter);
+  app.use("/api/images", imageFetcher);
   app.use("/api/applications", applications);
   app.use("/api/registerUser", registerUser);
   app.use("/api/branches", branches);

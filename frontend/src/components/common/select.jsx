@@ -43,6 +43,7 @@ const Select = ({ name, onChange, value, label, items, error }) => {
           }
       </select>
       {error && <div className="alert alert-danger">{error}</div>}
+      <br /><br />
     </div>
   );
 };
