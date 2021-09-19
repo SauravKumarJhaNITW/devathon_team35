@@ -1,6 +1,7 @@
 import React from "react";
 import * as userService from "../services/userService";
 import Form from "./common/form";
+import { Link } from "react-router-dom";
 
 class StudentApplication extends React.Component {
   state = {
@@ -36,33 +37,39 @@ class StudentApplication extends React.Component {
     return (
       <React.Fragment>
         <div>
+          <h2>APPLICATION {data.application_id}</h2>
           <ul>
-            <li key={1}>{data.name}</li>
-            <li key={2}>{data.application_id}</li>
-            <li key={3}>{data.birthdate}</li>
-            <li key={4}>{data.email}</li>
-            <li key={5}>{data.aadharNumber}</li>
-            <li key={6}>{data.address}</li>
-            <li key={7}>{data.gender}</li>
-            <li key={8}>{data.specialisation}</li>
-            <li key={9}>{data.category}</li>
-            <li key={10}>{data.pwd}</li>
-            <li key={11}>{data.userComments}</li>
-            <li key={12}>
+            <li key={0}><img src={`localhost:3001/api/images/${data.picture}`} alt={`${data.name}`} /></li>
+            <li key={1}>Name : {data.name}</li>
+            <li key={3}>DOB : {data.birthdate}</li>
+            <li key={4}>Email : {data.email}</li>
+            <li key={5}>Aadhar Number : {data.aadharNumber}</li>
+            <li key={6}>Address : {data.address}</li>
+            <li key={7}>Gender : {data.gender}</li>
+            <li key={8}>Branch: {data.branch}</li>
+            <li key={9}>Specialisation : {data.specialisation}</li>
+            <li key={10}>category : {data.category}</li>
+            <li key={11}>Pwd : {data.pwd}</li>
+            <li key={12}>Student Comments : {data.userComments}</li>
+            <li key={13}>
               <label htmlFor={"status"}>
-                <p>{"status(accepted/rejected/pending)"}</p>
+                <p>{"Change Status : "}</p>{' '}
               </label>
-              <input
-                type={"text"}
-                onChange={this.handleInputChange}
-                name={"status"}
-                value={this.state.data["status"]}
-              />
+                <select
+                  id={"status"}
+                  name={"status"}
+                  onChange={this.handleInputChange}
+                  value={this.state.data["status"]}
+                  className="custom-select"
+                >
+                  <option value="accepted">Accepted</option>
+                  <option value="rejected">Rejected</option>
+                </select>
             </li>
             <li key={13}>
               {" "}
               <label htmlFor={"adminComments"}>
-                <p>{"Comments               "}</p>
+                <p>{"Comments :"}</p>
               </label>
               <input
                 type={"text"}
@@ -74,7 +81,7 @@ class StudentApplication extends React.Component {
             <li key={14}>
               {" "}
               <label htmlFor={"reg_id"}>
-                <p>{"Registration Number     "}</p>
+                <p>{"Registration Number    : "}</p>
               </label>
               <input
                 type={"text"}
@@ -82,6 +89,11 @@ class StudentApplication extends React.Component {
                 name={"reg_id"}
                 value={this.state.data["reg_id"]}
               />
+            </li>
+            <li key={15}>
+              <a  href={`localhost:3001/api/files/${data.documents}`} >
+                View Documents
+              </a>
             </li>
           </ul>
           <button onClick={this.handleSubmit}>Submit</button>
