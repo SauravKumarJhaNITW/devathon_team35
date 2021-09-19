@@ -40,7 +40,7 @@ router.post("/update", async (req, res) => {
   // application.status = req.body.status;
   // application.reg_id = req.body.reg_id;
   // application.save();
-
+  console.log(req.body.reg_id);
   await Application.updateOne(
     { application_id: req.body.application_id },
     {
@@ -92,8 +92,6 @@ router.post("/", async (req, res) => {
     documents: req.body.documents,
     picture: req.body.picture,
     userComments: req.body.userComments,
-    adminComments: req.body.adminComments,
-    status: req.body.status,
   });
   await application.save();
   try {

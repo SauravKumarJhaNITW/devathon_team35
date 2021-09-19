@@ -19,6 +19,7 @@ class StudentApplication extends React.Component {
     const data = { ...this.state.data };
     data[input.name] = input.value;
     this.setState({ data });
+    console.log(this.state.data);
   };
 
   handleSubmit = async (e) => {
@@ -26,7 +27,8 @@ class StudentApplication extends React.Component {
     try {
       await userService.updateApplication(this.state);
       console.log("updated successfully");
-      window.location = "";
+      window.location = "/";
+      console.log(this.state.data);
     } catch (ex) {
       console.log(ex);
     }
@@ -39,7 +41,13 @@ class StudentApplication extends React.Component {
         <div>
           <h2>APPLICATION {data.application_id}</h2>
           <ul>
-            <li key={0}><img src={`localhost:3001/api/images/${data.picture}`} alt={`${data.name}`} /></li>
+            <li key={0}>
+              <img
+                src={`http://localhost:3001/api/images/${data.picture}`}
+                alt={`${data.name}`}
+                style={{ height: "150px", width: "100px" }}
+              />
+            </li>
             <li key={1}>Name : {data.name}</li>
             <li key={3}>DOB : {data.birthdate}</li>
             <li key={4}>Email : {data.email}</li>
@@ -53,18 +61,18 @@ class StudentApplication extends React.Component {
             <li key={12}>Student Comments : {data.userComments}</li>
             <li key={13}>
               <label htmlFor={"status"}>
-                <p>{"Change Status : "}</p>{' '}
+                <p>{"Change Status : "}</p>{" "}
               </label>
-                <select
-                  id={"status"}
-                  name={"status"}
-                  onChange={this.handleInputChange}
-                  value={this.state.data["status"]}
-                  className="custom-select"
-                >
-                  <option value="accepted">Accepted</option>
-                  <option value="rejected">Rejected</option>
-                </select>
+              <select
+                id={"status"}
+                name={"status"}
+                onChange={this.handleInputChange}
+                value={this.state.data["status"]}
+                className="custom-select"
+              >
+                <option value="accepted">Accepted</option>
+                <option value="rejected">Rejected</option>
+              </select>
             </li>
             <li key={13}>
               {" "}
@@ -91,7 +99,10 @@ class StudentApplication extends React.Component {
               />
             </li>
             <li key={15}>
-              <a  href={`localhost:3001/api/files/${data.documents}`} >
+              <a
+                target={"_blank"}
+                href={`http://localhost:3001/api/files/${data.documents}`}
+              >
                 View Documents
               </a>
             </li>
