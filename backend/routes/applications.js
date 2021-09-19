@@ -33,13 +33,24 @@ router.get("/application_id/:application_id", auth, async (req, res) => {
 
 //admin will update the application with comment and status
 router.post("/update", async (req, res) => {
-  const application = await Application.findOne({
-    application_id: req.body.application_id,
-  });
-  application.adminComments = req.body.adminComments;
-  application.status = req.body.status;
-  application.reg_id = req.body.reg_id;
-  application.save();
+  // const application = await Application.findOne({
+  //   application_id: req.body.application_id,
+  // });
+  // application.adminComments = req.body.adminComments;
+  // application.status = req.body.status;
+  // application.reg_id = req.body.reg_id;
+  // application.save();
+
+  await Application.updateOne(
+    { application_id: req.body.application_id },
+    {
+      $set: {
+        adminComments: req.body.adminComments,
+        status: req.body.status,
+        reg_id: req.body.reg_id,
+      },
+    }
+  );
 
   // req.body.reg_id
 
@@ -85,19 +96,24 @@ router.post("/", async (req, res) => {
     status: req.body.status,
   });
   await application.save();
+  try {
+    const from = "Admin",
+      to = req.body.email,
+      subject = "Thanks for applying for MTech Registration";
+    let text =
+      "Thanks for your MTech Registration application, we will update you if there is any change in your application.";
+    await sendMail({ from, to, subject, text });
 
-  const from = "Admin",
-    to = req.body.email,
-    subject = "Thanks for applying for MTech Registration";
-  let text =
-    "Thanks for your MTech Registration application, we will update you if there is any change in your application.";
-  await sendMail({ from, to, subject, text });
+    res
+      .status(200)
+      .send(
+        "Your application has been saved . Please Check your mail for further updates"
+      );
+  } catch (ex) {
+    console.log(ex);
+  }
 
-  res
-    .status(200)
-    .send(
-      "Your application has been saved . Please Check your mail for further updates"
-    );
+  res.status(200).send("ok");
 });
 
 module.exports = router;
