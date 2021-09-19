@@ -34,3 +34,7 @@ export function getApplications(status) {
 export function getApplication(application_id) {
   return http.get("/api/applications/application_id/" + application_id);
 }
+
+export function updateApplication(data) {
+  return http.post("/api/applications/update", data);
+}

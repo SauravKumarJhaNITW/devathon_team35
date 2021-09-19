@@ -31,6 +31,39 @@ router.get("/application_id/:application_id", auth, async (req, res) => {
 //   res.status(200).send({});
 // });
 
+//admin will update the application with comment and status
+router.post("/update", async (req, res) => {
+  const application = await Application.findOne({
+    application_id: req.body.application_id,
+  });
+  application.adminComments = req.body.adminComments;
+  application.status = req.body.status;
+  application.reg_id = req.body.reg_id;
+  application.save();
+
+  // req.body.reg_id
+
+  //mail logic
+  //send with reg_id
+  // const from = "Admin",
+  //   to = req.body.email,
+  //   subject = "Update from MTech Registration Portal";
+  // let text;
+  // if (req.body.status == "pending") return;
+  // else if (req.body.status == "accepted") {
+  //   text =
+  //     "your application is accepted. your registration number is " +
+  //     req.body.reg_id;
+  // } else {
+  //   text =
+  //     "your application is rejected and the reason is: " +
+  //     req.body.adminComments;
+  // }
+  // await sendMail({ from, to, subject, text });
+
+  res.status(200).send("ok");
+});
+
 //post request for student
 router.post("/", async (req, res) => {
   const application = new Application({
@@ -65,38 +98,6 @@ router.post("/", async (req, res) => {
     .send(
       "Your application has been saved . Please Check your mail for further updates"
     );
-});
-
-//admin will update the application with comment and status
-router.put("/", [auth, admin], async (req, res) => {
-  const application = await Application.findOne({
-    application_id: req.body.application_id,
-  });
-  application.adminComments = req.body.adminComments;
-  application.status = req.body.status;
-  application.save();
-
-  // req.body.reg_id
-
-  //mail logic
-  //send with reg_id
-  const from = "Admin",
-    to = req.body.email,
-    subject = "Update from MTech Registration Portal";
-  let text;
-  if (req.body.status == "pending") return;
-  else if (req.body.status == "accepted") {
-    text =
-      "your application is accepted. your registration number is " +
-      req.body.reg_id;
-  } else {
-    text =
-      "your application is rejected and the reason is: " +
-      req.body.adminComments;
-  }
-  await sendMail({ from, to, subject, text });
-
-  res.send(200);
 });
 
 module.exports = router;

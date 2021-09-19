@@ -73,6 +73,9 @@ const applicationSchema = new mongoose.Schema({
     type: String,
     default: "pending",
   },
+  reg_id: {
+    type: String,
+  },
 });
 
 const Application = mongoose.model("Application", applicationSchema);

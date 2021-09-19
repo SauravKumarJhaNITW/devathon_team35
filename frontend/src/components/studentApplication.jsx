@@ -6,7 +6,6 @@ class StudentApplication extends React.Component {
   state = {
     data: {},
     application_id: "",
-    reg_id: "",
   };
 
   async componentDidMount() {
@@ -21,9 +20,12 @@ class StudentApplication extends React.Component {
     this.setState({ data });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      await userService.updateApplication(this.state);
+      console.log("updated successfully");
+      window.location = "";
     } catch (ex) {
       console.log(ex);
     }
