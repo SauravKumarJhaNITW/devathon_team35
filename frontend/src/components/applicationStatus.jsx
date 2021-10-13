@@ -17,11 +17,10 @@ class ApplicationStatus extends Form {
   };
 
   doSubmit = async () => {
-    // change to fetch application status
     try {
       const { data } = await getStatus(this.state.data.application_id);
-      console.log(data.status);
-      this.setState({ success: data.status });
+      console.log(data);
+      this.setState({ success: data });
     } catch (ex) {
       if (
         ex.response &&

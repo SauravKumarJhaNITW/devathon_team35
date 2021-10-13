@@ -56,21 +56,21 @@ router.post("/update", async (req, res) => {
 
   //mail logic
   //send with reg_id
-  // const from = "Admin",
-  //   to = req.body.email,
-  //   subject = "Update from MTech Registration Portal";
-  // let text;
-  // if (req.body.status == "pending") return;
-  // else if (req.body.status == "accepted") {
-  //   text =
-  //     "your application is accepted. your registration number is " +
-  //     req.body.reg_id;
-  // } else {
-  //   text =
-  //     "your application is rejected and the reason is: " +
-  //     req.body.adminComments;
-  // }
-  // await sendMail({ from, to, subject, text });
+  const from = "imsauravgauravjha@gmail.com",
+    to = req.body.email,
+    subject = "Update from MTech Registration Portal";
+  let text;
+  if (req.body.status == "pending") return;
+  else if (req.body.status == "accepted") {
+    text =
+      "your application is accepted. your registration number is " +
+      req.body.reg_id;
+  } else {
+    text =
+      "your application is rejected and the reason is: " +
+      req.body.adminComments;
+  }
+  await sendMail({ from, to, subject, text });
 
   res.status(200).send("ok");
 });
@@ -95,7 +95,7 @@ router.post("/", async (req, res) => {
   });
   await application.save();
   try {
-    const from = "Admin",
+    const from = "imsauravgauravjha@gmail.com",
       to = req.body.email,
       subject = "Thanks for applying for MTech Registration";
     let text =
@@ -109,9 +109,8 @@ router.post("/", async (req, res) => {
       );
   } catch (ex) {
     console.log(ex);
+    res.status(200).send("problem in sending email");
   }
-
-  res.status(200).send("ok");
 });
 
 module.exports = router;
