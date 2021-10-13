@@ -67,9 +67,9 @@ class StudentApplication extends React.Component {
                 id={"status"}
                 name={"status"}
                 onChange={this.handleInputChange}
-                value={this.state.data["status"]}
                 className="custom-select"
               >
+                <option value="">--</option>
                 <option value="accepted">Accepted</option>
                 <option value="rejected">Rejected</option>
               </select>
