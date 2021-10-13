@@ -75,7 +75,7 @@ const applicationSchema = new mongoose.Schema({
   },
   reg_id: {
     type: String,
-    default: "",
+    default: "na",
   },
 });
 

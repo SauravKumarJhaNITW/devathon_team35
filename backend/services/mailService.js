@@ -11,8 +11,9 @@ module.exports = async ({ from, to, subject, text, html }) => {
   });
 
   // send mail with defined transport object
+  //if html is defined then text will not be sent
   let info = await transporter.sendMail({
-    from: `MTech Registration Portal`, // sender address
+    from: `Mtech registration Portal <${from}>`, // sender address
     to: to, // list of receivers
     subject: subject, // Subject line
     text: text, // plain text body

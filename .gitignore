@@ -9,3 +9,4 @@ yarn-error.log
 backend/logfile.log
 backend/uncaughtException.log
 backend/uncaughtException.log
+backend/routes/sendMail.js
